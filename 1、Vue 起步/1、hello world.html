@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello world</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">{{content}}</div>
+    <script>
+        // 方法一 通过dom操作，显示hello world
+        // var appElm = document.getElementById("app");
+        // appElm.innerHTML = "hello world";
+        // setTimeout(() => {
+        //     appElm.innerHTML = "bye world";
+        // }, 2000);
+        //方法二 
+        var app = new Vue({
+            el: "#app",
+            data: {
+                content: "hello world"
+            }
+        })
+        setTimeout(() => {
+            app.$data.content="bye world"
+        }, 2000);
+    </script>
+</body>
+
+</html>
