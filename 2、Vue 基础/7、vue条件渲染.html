@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello world</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app1">
+        <span v-if="show">{{message}}</span>
+    </div>
+    <div id="app2">
+        <span v-show="show">{{message}}</span>
+    </div>
+    <div id="app3">
+        <span v-if="show==='a'">A</span>
+        <span v-else-if="show==='b'">B</span>
+        <span v-else>others</span>
+    </div>
+    <div id="app4">
+        <div v-if="show">
+            用户名：
+            <input key="username" type="text">
+        </div>
+        <div v-else>
+            邮箱名：
+            <input key="email" type="text">
+        </div>
+    </div>
+    <script>
+        // v-if
+        // 通过切换 show 的值，切换元素是渲染
+        var app1 = new Vue({
+            el: "#app1",
+            data: {
+                message: "hello world",
+                show: false
+            }
+        })
+
+        //v-show
+        // 通过 css display 来 显示或隐藏元素
+        // 通过切换show 的是，切换元素是否显示
+        var app2 = new Vue({
+            el: "#app2",
+            data: {
+                message: "hello world",
+                show: false
+            }
+        })
+
+        // v-if v-else 必须连在一起写
+        var app3 = new Vue({
+            el: "#app3",
+            data: {
+                message: "hello world",
+                show: "a"
+            }
+        })
+
+        // key 值
+        // 如果不在input上添加不同的key值，我们切换show的值，会发现输入框的值没有变
+        // 这是由于 vue 会尽量复用 dom上的元素
+        // 在2个input上添加 不同的key值，vue 会认为 如果组件的key不同的，就认为是不同的组件，
+        var app4 = new Vue({
+            el: "#app4",
+            data: {
+                message: "hello world",
+                show: false
+            }
+        })
+    </script>
+</body>
+
+</html>

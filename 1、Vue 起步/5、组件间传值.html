@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello world</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="inputValue">
+        <button v-on:click="handleBtnClick">提交</button>
+        <ul>
+            <todo-item v-bind:content="item" v-bind:index="index" v-on:delete="handleItemClick" v-for="(item,index) in list">
+            </todo-item>
+        </ul>
+    </div>
+    <script>
+        // 实现 点击哪个todoItem, 就删除哪个item
+        // 父组件往子组件传值 v-bind
+        // 子组件给父组件传值 $emit
+        var TodoItem = {
+            props: ["content", "index"],
+            template: "<li v-on:click='handleItemClick'>{{content}}</li>",
+            methods: {
+                handleItemClick: function () {
+                    this.$emit("delete", this.index)
+                }
+            }
+        }
+        var app = new Vue({
+            el: "#app",
+            components: {
+                TodoItem: TodoItem // 注册局部组件
+            },
+            data: {
+                list: [],
+                inputValue: "",
+            },
+            methods: {
+                handleBtnClick: function () {
+                    this.list.push(this.inputValue);
+                    this.inputValue = "";
+                },
+                handleItemClick: function (index) {
+                    alert(index);
+                    this.list.splice(index, 1);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

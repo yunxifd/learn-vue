@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>计算属性、方法、侦听器</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app1">
+        {{fullName}} {{age}}
+    </div>
+    <div id="app2">
+        {{fullName}} {{age}}
+    </div>
+    <script>
+        var app1 = new Vue({
+            el: "#app1",
+            data: {
+                firstName: "Dell",
+                lastName: "Lee",
+                age: 28
+            },
+            computed: {
+                fullName: function () {
+                    return this.firstName + " " + this.lastName;
+                }
+            }
+        })
+        // getter setter
+        // 使用app2.fullName = "Tom Cat", 会发现 firstName lastName 也跟着变
+        var app2 = new Vue({
+            el: "#app2",
+            data: {
+                firstName: "Dell",
+                lastName: "Lee",
+                age: 28
+            },
+            computed: {
+                fullName: {
+                    get: function () {
+                        return this.firstName + " " + this.lastName;
+                    },
+                    set: function(value) {
+                        var arr = value.split(' ');
+                        this.firstName = arr[0];
+                        this.lastName = arr[1];
+                    }
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

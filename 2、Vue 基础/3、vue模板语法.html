@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue 模板语法</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app1">
+        <span>{{text}}</span>
+    </div>
+    <div id="app2">
+        <span v-text="text+'Lee'"></span>
+        <span v-html="html"></span>
+        <span>{{text+"test"}}</span>
+        <span>{{html}}</span>
+    </div>
+    <script>
+        // 插值表达式
+        var app1 = new Vue({
+            el: "#app1",
+            data: {
+                text: "app1"
+            }
+        })
+        // 指令 v-text v-html v-bind:title 后面跟的是js表达式
+        var app2 = new Vue({
+            el: "#app2",
+            data: {
+                text: "app2",
+                html:"<h1>app2</h1>"
+            }
+        })
+        //
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>样式绑定</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .activated {
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app1">
+        <div @click="handleClick" :class="{activated:isActivated}">hello world</div>
+    </div>
+    <div id="app2">
+        <div @click="handleClick" :class="[activated, activatedOne]">hello world</div>
+    </div>
+    <div id="app3">
+        <div @click="handleClick" :style="styleObj">hello world</div>
+    </div>
+    <div id="app4">
+        <div @click="handleClick" :style="[styleObj,styleObj2]">hello world</div>
+    </div>
+    <script>
+        // 实现点击，切换样式
+
+        // class
+        //  对象绑定
+        var app1 = new Vue({
+            el: "#app1",
+            data: {
+                isActivated: false
+            },
+            methods: {
+                handleClick: function () {
+                    this.isActivated = !this.isActivated;
+                }
+            }
+        })
+
+        // 数组语法
+        var app2 = new Vue({
+            el: "#app2",
+            data: {
+                activated: "",
+                activatedOne: "activated-one"
+            },
+            methods: {
+                handleClick: function () {
+                    if (this.activated === 'activated')
+                        this.activated = "";
+                    else
+                        this.activated = "activated";
+                }
+            }
+        })
+
+        // 内敛样式
+        // 对象语法
+        var app3 = new Vue({
+            el: "#app3",
+            data: {
+                styleObj: {
+                    color: "black"
+                },
+            },
+            methods: {
+                handleClick: function () {
+                    if (this.styleObj.color === 'black')
+                        this.styleObj.color = "blue";
+                    else
+                        this.styleObj.color = "black";
+                }
+            }
+        })
+
+        // 数组语法
+        var app4 = new Vue({
+            el: "#app4",
+            data: {
+                styleObj: {
+                    color: "black"
+                },
+                styleObj2: {
+                    fontSize: "12px"
+                },
+            },
+            methods: {
+                handleClick: function () {
+                    if (this.styleObj.color === 'black')
+                        this.styleObj.color = "blue";
+                    else
+                        this.styleObj.color = "black";
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

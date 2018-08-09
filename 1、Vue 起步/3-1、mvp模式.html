@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello world</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+</head>
+
+<body>
+    <div>
+        <input id="input" type="text">
+        <button id="btn">提交</button>
+        <ul id="list"></ul>
+    </div>
+    <script>
+        // m 模型层 相当于被省略了
+        // v 视图层 dom
+        // p 控制层 eg. 按钮单击操作，通过操作dom改变视图
+        // 在mvp模型中，最主要的逻辑都在 P 层，而这大量的代码，都是在操作dom
+        function Page() {
+        }
+        $.extend(Page.prototype, {
+            init: function () {
+                this.bindEvents();
+            },
+            bindEvents: function () {
+                var btn = $('#btn');
+                btn.on('click', $.proxy(this.handleBtnClick, this))
+            },
+            handleBtnClick: function () {
+                var inputElem = $("#input");
+                var inputValue = inputElem.val();
+                var ulElem =$("#list");
+                ulElem.append("<li>"+inputValue+"</li>");
+                inputElem.val("");
+            }
+        })
+        var page = new Page();
+        page.init();
+    </script>
+</body>
+
+</html>

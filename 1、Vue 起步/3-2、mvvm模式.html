@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello world</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <!-- v 层 -->
+    <div id="app">
+        <input type="text" v-model="inputValue">
+        <button v-on:click="handleBtnClick">提交</button>
+        <ul>
+            <li v-for="item in list">{{item}}</li>
+        </ul>
+    </div>
+    <script>
+        // m
+        // vm 由vue提供， m变化的时候，改变视图层，而视图层变化或点击事件等的时候，通知m层
+        // v
+        //  编码的重点在 m 和 V 层
+        
+        // m 层
+        var app = new Vue({
+            el: "#app",
+            data: {
+                list: [],
+                inputValue:"",
+            },
+            methods: {
+                handleBtnClick: function(){
+                    this.list.push(this.inputValue);
+                    this.inputValue="";
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

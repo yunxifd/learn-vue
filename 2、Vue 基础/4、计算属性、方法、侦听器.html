@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>计算属性、方法、侦听器</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app1">
+        {{firstName+" "+lastName}}
+    </div>
+    <div id="app2">
+        {{fullName}} {{age}}
+    </div>
+    <div id="app3">
+        {{fullName()}} {{age}}
+    </div>
+    <div id="app4">
+        {{fullName}} {{age}}
+    </div>
+    <script>
+        var app1 = new Vue({
+            el: "#app1",
+            data: {
+                firstName: "Dell",
+                lastName: "Lee"
+            }
+        })
+        // 计算属性 fullName , 保证v层，不会包含太多业务逻辑
+        // 计算属性 会缓存，当依赖的变量没有变化时，不会重新计算
+        // eg。 页面加载后，修改 age = 27,发现 fullName 没有重新计算
+        //  修改firstName 或 lastName 时，才发现fullName 重新计算
+        var app2 = new Vue({
+            el: "#app2",
+            data: {
+                firstName: "Dell",
+                lastName: "Lee",
+                age: 28
+            },
+            computed: {
+                fullName: function () {
+                    console.log("计算了一次")
+                    return this.firstName + " " + this.lastName;
+                }
+            }
+        })
+        // 方法
+        // 只要 data 有发生变化，就会重新计算
+        var app3 = new Vue({
+            el: "#app3",
+            data: {
+                firstName: "Dell",
+                lastName: "Lee",
+                age: 28
+            },
+            methods: {
+                fullName: function(){
+                    return this.fullName = this.firstName + " " + this.lastName;
+                }
+            }
+        })
+        // 侦听器
+        // 只有监听的属性的值变化时，才重新计算
+        var app4 = new Vue({
+            el: "#app4",
+            data: {
+                firstName: "Dell",
+                lastName: "Lee",
+                fullName: "Dell Lee",
+                age: 28
+            },
+            watch: {
+                firstName: function () {
+                    return this.fullName = this.firstName + " " + this.lastName;
+                },
+                lastName: function () {
+                    return this.fullName = this.firstName + " " + this.lastName;
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>
