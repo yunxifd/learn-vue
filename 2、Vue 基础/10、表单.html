@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>表单输入绑定</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <section>
+        <h2>单行文本</h2>
+        <div id="example1">
+            <input v-model="message" placeholder="edit me">
+            <p>Message is: {{ message }}</p>
+        </div>
+        <h2>多行文本</h2>
+        <div id="example2">
+            <span>Multiline message is:</span>
+            <p style="white-space: pre-line;">{{ message }}</p>
+            <br>
+            <textarea v-model="message" placeholder="add multiple lines"></textarea>
+        </div>
+        <h2>复选框</h2>
+        <div id="example3">
+            <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+            <label for="jack">Jack</label>
+            <input type="checkbox" id="john" value="John" v-model="checkedNames">
+            <label for="john">John</label>
+            <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+            <label for="mike">Mike</label>
+            <br>
+            <span>Checked names: {{ checkedNames }}</span>
+        </div>
+        <h2>单选框</h2>
+        <div id="example4">
+            <input type="radio" id="one" value="One" v-model="picked">
+            <label for="one">One</label>
+            <br>
+            <input type="radio" id="two" value="Two" v-model="picked">
+            <label for="two">Two</label>
+            <br>
+            <span>Picked: {{ picked }}</span>
+        </div>
+    </section>
+    <section>
+        <h2>修饰符</h2>
+        <div id="example5">
+            <label>姓名</label>
+            <input type="text" v-model.lazy.trim="name">
+            <label>年龄</label>
+            <input type="number" v-model.number="age">
+        </div>
+    </section>
+    <script>
+        var example1 = new Vue({
+            el: "#example1",
+            data: {
+                message: ""
+            }
+        })
+
+        var example2 = new Vue({
+            el: "#example2",
+            data: {
+                message: ""
+            }
+        })
+
+        var example3 = new Vue({
+            el: "#example3",
+            data: {
+                checkedNames: []
+            }
+        })
+
+        var example4 = new Vue({
+            el: '#example4',
+            data: {
+                picked: ''
+            }
+        })
+        var example5 = new Vue({
+            el: '#example5',
+            data: {
+                name: '',
+                age: 18
+            }
+        })
+    </script>
+</body>
+
+</html>

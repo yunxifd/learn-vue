@@ -10,18 +10,37 @@
 </head>
 
 <body>
-    <div id="app">
+    <div id="app1">
         <div v-for=" (item,index) in list" :key="item.id">
             {{item.title}}---{{index}}
         </div>
+    </div>
+    <h2>一段取值范围 v-for</h2>
+    <div id="app2">
+        <span v-for=" n in 10">
+            {{n}}
+        </span>
+    </div>
+    <h2>v-for with v-if</h2>
+    <div id="app3">
+        <ul>
+            <li v-for="todo in todos" v-if="!todo.isComplete">{{todo}}</li>
+        </ul>
+    </div>
+    <h2>组件 v-for</h2>
+    <div id="todo-list-example">
+        <input v-model="newTodoText" v-on:keyup.enter="addNewTodo" placeholder="Add a todo">
+        <ul>
+            <li is="todo-item" v-for="(todo, index) in todos" v-bind:key="todo.id" v-bind:title="todo.title" v-on:remove="todos.splice(index, 1)"></li>
+        </ul>
     </div>
     <script>
         // 尽量不要使用 index 作为 key值
 
         // 数组变异方法
         // push pop shift unshift splice sort reverse
-        var app = new Vue({
-            el: "#app",
+        var app1 = new Vue({
+            el: "#app1",
             data: {
                 list: [
                     {
@@ -37,6 +56,67 @@
                         title: "hello3"
                     }
                 ]
+            }
+        })
+
+        var app2 = new Vue({
+            el: "#app2",
+            data: {
+            }
+        })
+        var app3 = new Vue({
+            el: "#app3",
+            data: {
+                todos: [
+                    {
+                        title: "hello",
+                        isComplete: true
+                    },
+                    {
+                        title: "hello1",
+                        isComplete: false
+                    }
+                ]
+            }
+        })
+        Vue.component('todo-item', {
+            template: '\
+    <li>\
+      {{ title }}\
+      <button v-on:click="$emit(\'remove\')">X</button>\
+    </li>\
+  ',
+            props: ['title']
+        })
+
+        var todoList = new Vue({
+            el: '#todo-list-example',
+            data: {
+                newTodoText: '',
+                todos: [
+                    {
+                        id: 1,
+                        title: 'Do the dishes',
+                    },
+                    {
+                        id: 2,
+                        title: 'Take out the trash',
+                    },
+                    {
+                        id: 3,
+                        title: 'Mow the lawn'
+                    }
+                ],
+                nextTodoId: 4
+            },
+            methods: {
+                addNewTodo: function () {
+                    this.todos.push({
+                        id: this.nextTodoId++,
+                        title: this.newTodoText
+                    })
+                    this.newTodoText = ''
+                }
             }
         })
     </script>
